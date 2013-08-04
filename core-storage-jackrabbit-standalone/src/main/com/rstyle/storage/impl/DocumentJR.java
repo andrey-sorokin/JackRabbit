@@ -37,9 +37,13 @@ public class DocumentJR extends AbstractDocument {
 		this.storeJR = storeJR;
 	}
 
+	public Store getStoreJR() {
+		return storeJR;
+	}
+
 	@Override
 	public Content createContentInstance(String name, String mimeType) {
-		return new ContentJR("content_" + name, mimeType, "/" + id);
+		return new ContentJR("content_" + name, mimeType, this);
 	}
 
 	public void load() {
@@ -61,7 +65,7 @@ public class DocumentJR extends AbstractDocument {
 				String name = StringUtil.getRightSubString(entry.getName(),
 						Constants.CONTENTS_NODE_PREFIX.length());
 
-				contents.put(name, new ContentJR(name, mimeType, ""));
+				contents.put(name, new ContentJR(name, mimeType, this));
 			}
 
 		} catch (RepositoryException e) {
